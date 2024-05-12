@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { LogInNav } from "./Components/LogInNav";
 import { LogInForm } from "./Components/LogIn";
