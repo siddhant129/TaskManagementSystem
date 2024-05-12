@@ -1,13 +1,124 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+.folders-main {
+  display: flex;
+}
+.folders {
+  background-color: #333d4b;
+  width: 400px;
+  margin: 5px;
+  flex-basis: 30%;
+  border: 1px solid;
+  border-radius: 10px;
+}
+/* .folder{
+  list-style: none;
+} */
+
+.subHead li {
+  /* height: 30px; */
+  padding-left: 10px;
+}
+.subHead img {
+  width: 20px;
+  height: 20px;
+}
+.taskDate {
+  display: flex;
+}
+.taskDate p {
+  width: fit-content;
+  padding-left: 10px;
+}
+.subHead h1 {
+  font-weight: 700;
+}
+.subHead h2 {
+  font-weight: 600;
+}
+.folderBg :active {
+  background-color: #5a687a;
+  border-radius: 9px;
+}
+/* Chat app CSS */
+
+.yourMsg {
+  list-style: none;
+  display: flex;
+  justify-content: right;
+}
+.clientMsg {
+  list-style: none;
+  display: flex;
+  justify-content: left;
+}
+.chatBox {
+  width: 300px;
+  justify-content: center;
+}
+.chatWindow {
+  border: solid 1px black;
+}
+.chatDiv {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+.teams {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.sendBtn {
+  margin: 7px;
+  width: 30px;
+}
+
+/* .chatDiv {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.yourMsg {
+  list-style: none;
+  display: flex;
+  justify-content: right;
+}
+.clientMsg {
+  list-style: none;
+  display: flex;
+  justify-content: left;
+} */
+/* .chatBox {
+  padding-top: 5px;
+  border: solid 1px black;
+} */
+/* .subHead :hover {
+  background-color: #5a687a;
+  border-radius: 9px;
+}
+.subHead :focus {
+  background-color: #5a687a;
+  border-radius: 9px;
+} */
+.taskHead {
+  display: flex;
+  justify-content: space-between;
+}
+.tasks {
+  flex-basis: 60%;
 }
