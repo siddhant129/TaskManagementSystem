@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Nav } from "./NavBar";
 import { Folders } from "./Folders";
 export function Dashboard() {
@@ -9,8 +8,6 @@ export function Dashboard() {
     return (
       <>
         <Nav userName={data.userName} />
-
-        {/* <h1 className="header">Welcome {data.userName}</h1> */}
         <Folders></Folders>
       </>
     );

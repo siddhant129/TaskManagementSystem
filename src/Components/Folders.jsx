@@ -1,12 +1,10 @@
 import { useState } from "react";
 import "../index.css";
 import axios from "axios";
-// const folderTasks = [];
 const taskProp = {
   Token: "",
   closeTask: () => {},
   changeFolder: () => {},
-  taskRef: (newTask) => {},
 };
 const addTask = async (event, token) => {
   event.preventDefault();
@@ -89,9 +87,6 @@ async function updateTask(token, folderId, id, name, desc) {
     );
     if (updateTask) {
       console.log(updateTask);
-      // if () {
-
-      // }
     }
     console.log(updateTask);
   } catch (error) {
@@ -193,40 +188,8 @@ function AddTaskComp({ closeTask, Token, taskRef } = taskProp) {
   );
 }
 
-// function Tasks({ changeFolder } = taskProp) {
-//   changeFolder();
-//   return (
-//     <>
-// {
-/* <div>
-        <ul>
-          {tasks.map((task, index) => (
-            <div className="text-center subHead">
-              <li
-                key={task.id}
-                className="folder text-subHeading list-inside list-none list-bg-gray"
-              >
-                {task.name}
-              </li>
-              <li>{task.description}</li>
-            </div>
-          ))}
-        </ul>
-      </div> */
-// }
-// </>
-//   );
-// }
-
-// function addTask() {
-//   console.log("Add task");
-// }
-
-// var tasks = [];
-
 export function Folders() {
   const [taskClick, setTask] = useState(false);
-  const [editTask, setEdit] = useState(false);
   const [tasks, setFolder] = useState([]);
   const userData = localStorage.getItem("data");
   var data = JSON.parse(userData);
@@ -265,10 +228,6 @@ export function Folders() {
                           console.log("tasks push", folder.tasks);
                           localStorage.setItem("folderId", folder.id);
                           const tasks = await getTasks(folder.id, data.token);
-                          const foldDiv = document.getElementById(
-                            folder.id + "fdiv"
-                          );
-                          // foldDiv.classList.add("folderBg");
                           console.log("got the tasks", tasks);
                           if (tasks) {
                             setFolder(tasks);
