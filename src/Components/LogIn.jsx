@@ -1,5 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
-import { Dashboard } from "./Dashboard";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const LogProp = {
