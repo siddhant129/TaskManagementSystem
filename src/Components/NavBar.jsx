@@ -1,11 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-// const prop = {
-//   var userName,
-// };
 export function Nav({ userName }) {
   const [display, setProfile] = useState("hidden");
-  const nevigate = useNavigate();
   const [menu, setMenu] = useState("hidden");
   return (
     <>
@@ -83,18 +78,14 @@ export function Nav({ userName }) {
                 <div className="flex space-x-4">
                   {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
                   <a
-                    onClick={() => {
-                      nevigate("/Dashboard");
-                    }}
+                    href="/Dashboard"
                     className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                     aria-current="page"
                   >
                     Dashboard
                   </a>
                   <a
-                    onClick={() => {
-                      nevigate("/Team");
-                    }}
+                    href="/Team"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
                     Team
@@ -224,18 +215,14 @@ export function Nav({ userName }) {
           <div className={`space-y-1 px-2 pb-3 pt-2 transition-all ${menu}`}>
             {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
             <a
-              onClick={() => {
-                nevigate("/Dashboard");
-              }}
+              href="/Dashboard"
               className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
               aria-current="page"
             >
               Dashboard
             </a>
             <a
-              onClick={() => {
-                nevigate("/Team");
-              }}
+              href="/Team"
               className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
             >
               Team

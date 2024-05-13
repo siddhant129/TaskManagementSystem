@@ -78,6 +78,7 @@ code {
 .teams {
   padding-top: 5px;
   padding-bottom: 5px;
+  height: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
@@ -121,4 +122,40 @@ code {
 }
 .tasks {
   flex-basis: 60%;
+}
+
+.teamDiv {
+  background-color: #f3a662;
+  margin: 2px;
+}
+
+#teamName {
+  font-weight: bolder;
+  text-align: center;
+}
+.membersDiv {
+  background-color: #35b2f3;
+  margin: 2px;
+}
+
+@media only screen and (max-width: 500px) {
+  .teams {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 9px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .chatInp {
+    width: 190px;
+  }
+  .chatWindow {
+    width: 250px;
+    border: solid 1px black;
+  }
+
+  .sendBtn {
+    margin: 0px;
+    width: 45px;
+  }
 }

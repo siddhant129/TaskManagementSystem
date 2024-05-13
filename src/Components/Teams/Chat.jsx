@@ -3,7 +3,6 @@ import { ChatForm } from "./chatForm";
 import { v4 as uuidv4 } from "uuid";
 import { Nav } from "../NavBar";
 import "../../index.css";
-import { json } from "react-router-dom";
 uuidv4();
 const socket = new WebSocket("wss:chatappbackendservice-3o66.onrender.com");
 
@@ -20,7 +19,7 @@ export function Chat({ chats }) {
     console.log("here is your chat ", chat);
     setChats([
       ...allChats,
-      { id: uuidv4, client: false, class: "yourMsg", message: chat },
+      { id: uuidv4, client: false, class: "yourMsg", message: "You: " + chat },
     ]);
     socket.send(JSON.stringify({ user: "sid", message: chat }));
     console.log(allChats);
@@ -55,17 +54,25 @@ export function Chat({ chats }) {
   return (
     <>
       <Nav />
+      <h1 id="heading" style={{ justifyContent: "center", display: "flex" }}>
+        {heading}
+      </h1>
       <div className="teams">
-        <div>
-          <h1 style={{ justifyContent: "center", display: "flex" }}>Teams</h1>
+        <div className="">
+          <h1
+            className="teamDiv rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent "
+            style={{ justifyContent: "center", display: "flex" }}
+          >
+            Teams
+          </h1>
         </div>
         {/* bg-cyan-300 */}
         <div className=" chatWindow peer w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100">
           <h1
-            id="heading"
-            style={{ justifyContent: "center", display: "flex" }}
+            id="teamName"
+            className="rounded-[7px] border border-blue-gray-200 bg-transparent"
           >
-            {heading}
+            Team 1
           </h1>
           <div
             className="w-full h-[300px] sm:h-[450px] md:h-[600px] lg:h-[450px] xl:h-[600px]"
@@ -86,7 +93,10 @@ export function Chat({ chats }) {
           <ChatForm chatData={handleChat} />
         </div>
         <div>
-          <h1 style={{ justifyContent: "center", display: "flex" }}>
+          <h1
+            className="membersDiv rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent "
+            style={{ justifyContent: "center", display: "flex" }}
+          >
             Chat members
           </h1>
         </div>
