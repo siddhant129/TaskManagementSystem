@@ -1,7 +1,26 @@
+import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const userData = localStorage.getItem("data");
+var data = JSON.parse(userData);
+const getTeams = async () => {
+  const grps = await axios.get(
+    "https://chatappbackendservice-3o66.onrender.com/chatGrp/getUserGrps",
+    {
+      headers: { Authorization: `Bearer ${data.token}` },
+    }
+  );
+  console.log("grps hmmm", grps.data.userGrps);
+  localStorage.setItem("Teams", JSON.stringify(grps.data.userGrps));
+  // return grps.data.userGrps;
+};
 export function Nav({ userName }) {
   const [display, setProfile] = useState("hidden");
   const [menu, setMenu] = useState("hidden");
+
+  const navigate = useNavigate();
+
   return (
     <>
       <nav className="bg-gray-800">
@@ -85,7 +104,11 @@ export function Nav({ userName }) {
                     Dashboard
                   </a>
                   <a
-                    href="/Team"
+                    // href="/Team"
+                    onClick={async () => {
+                      await getTeams();
+                      navigate("/Team");
+                    }}
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
                     Team
@@ -222,7 +245,11 @@ export function Nav({ userName }) {
               Dashboard
             </a>
             <a
-              href="/Team"
+              // href="/Team"
+              onClick={async () => {
+                await getTeams();
+                navigate("/Team");
+              }}
               className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
             >
               Team

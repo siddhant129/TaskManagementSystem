@@ -12,12 +12,12 @@ function App() {
     <>
       <Router>
         <Routes>
+          {!data && <Route exact path="/" element={<LogInNav />} />}
           {data && <Route exact path="/" element={<Dashboard />} />}
-          {data && <Route exact path="/Team" element={<Chat />} />}
+          {data && <Route exact path="/Team" element={<Chat teams={data} />} />}
           <Route exact path="/Dashboard" element={<Dashboard />} />
 
           <Route exact path="/SignUp" element={<SignUp />} />
-          {!data && <Route exact path="/" element={<LogInNav />} />}
         </Routes>
       </Router>
     </>

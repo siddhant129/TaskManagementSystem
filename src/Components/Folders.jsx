@@ -30,7 +30,6 @@ const addTask = async (event, token) => {
   const newTask = await response.json().catch((err) => {
     console.log(err.message);
   });
-  console.log(newTask);
   return newTask.tasks;
 };
 
@@ -38,7 +37,6 @@ const addTask = async (event, token) => {
 
 async function getTasks(folderId, token) {
   try {
-    console.log(folderId);
     const folders = await axios.get(
       "https://toodo-api.onrender.com/app/v1/folder",
       {
@@ -48,16 +46,13 @@ async function getTasks(folderId, token) {
     console.log("folders", folders);
     if (folders.data) {
       var data = folders.data;
-      console.log("data", data);
       const allFolders = data.allfolders;
       var tasks = [];
       allFolders.forEach((folder) => {
         if (folderId === folder.id) {
-          console.log("Hey yaar", folder.tasks);
           tasks = folder.tasks;
         }
       });
-      console.log(tasks);
       return tasks;
     } else {
       return [];
@@ -70,7 +65,6 @@ async function getTasks(folderId, token) {
 
 // Function to update task created
 async function updateTask(token, folderId, id, name, desc) {
-  console.log("Update task");
   // event.preventDefault()
   try {
     const updateTask = await axios.put(

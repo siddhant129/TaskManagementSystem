@@ -3,7 +3,7 @@ import { Folders } from "./Folders";
 export function Dashboard() {
   const userData = localStorage.getItem("data");
   var data = JSON.parse(userData);
-  console.log("UserData", data);
+  // console.log("UserData", data);
   if (data) {
     return (
       <>

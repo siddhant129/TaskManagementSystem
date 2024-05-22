@@ -57,11 +57,38 @@ code {
   list-style: none;
   display: flex;
   justify-content: right;
+  /* text-align: justify; */
+  text-justify: auto;
+  white-space: nowrap;
+  word-wrap: break-word;
 }
 .clientMsg {
   list-style: none;
   display: flex;
   justify-content: left;
+  text-justify: auto;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+.yourMsgDiv {
+  margin-top: 2px;
+  width: 300px;
+}
+.yourMsgDiv span {
+  padding: 5px;
+  max-width: 250px;
+  text-wrap: wrap;
+  background-color: #35b2f3;
+}
+.clientMsgDiv {
+  margin-top: 2px;
+  width: 300px;
+}
+.clientMsgDiv span {
+  padding: 5px;
+  max-width: 300px;
+  text-wrap: wrap;
+  background-color: #f3a662;
 }
 .chatBox {
   width: 300px;
@@ -157,5 +184,28 @@ code {
   .sendBtn {
     margin: 0px;
     width: 45px;
+  }
+
+  .yourMsgDiv {
+    margin-top: 2px;
+    width: 225px;
+  }
+  .yourMsgDiv span {
+    padding: 3px;
+    max-width: 170px;
+    text-wrap: wrap;
+    background-color: #35b2f3;
+    /* text-justify: distribute-all-lines; */
+  }
+  .clientMsgDiv {
+    margin-top: 2px;
+    width: 200px;
+  }
+  .clientMsgDiv span {
+    padding: 3px;
+    max-width: 170px;
+    text-wrap: wrap;
+    background-color: #f3a662;
+    /* text-justify: distribute-all-lines; */
   }
 }

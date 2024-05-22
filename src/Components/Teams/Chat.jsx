@@ -3,25 +3,75 @@ import { ChatForm } from "./chatForm";
 import { v4 as uuidv4 } from "uuid";
 import { Nav } from "../NavBar";
 import "../../index.css";
+import { Teams } from "./teams";
+import { Members } from "./members";
 uuidv4();
-const socket = new WebSocket("wss:chatappbackendservice-3o66.onrender.com");
+const userData = localStorage.getItem("data");
+var userName;
+var data = JSON.parse(userData);
+if (!data) {
+  userName = "";
+} else {
+  userName = data.userName;
+}
+
+const socket = new WebSocket(
+  "wss:chatappbackendservice-3o66.onrender.com?username=" + userName
+);
 
 //Connection open
 socket.addEventListener("open", (e) => {
   console.log("Connected to server");
 });
 
-export function Chat({ chats }) {
-  const [allChats, setChats] = useState([]);
-  const [heading, setHead] = useState("");
+//Get team members
+const getMembers = (teamName) => {
+  const allTeams = JSON.parse(localStorage.getItem("Teams"));
+  var allMembers = [];
+  allTeams.filter((team) => {
+    if (team.Name === teamName) {
+      allMembers = team.users;
+      return team;
+    }
+  });
+  return allMembers;
+};
 
+export function Chat({ teams }) {
+  const [userTeams, setTeams] = useState("");
+  const [members, setMembers] = useState("");
+  var chatArr = [];
+  const chatArr1 = localStorage.getItem("chats");
+
+  if (chatArr1) {
+    chatArr = JSON.parse(chatArr1);
+  }
+
+  const [allChats, setChats] = useState(chatArr);
+  const [heading, setHead] = useState("");
   const handleChat = (chat) => {
     console.log("here is your chat ", chat);
+    chatArr.push({
+      id: uuidv4,
+      client: false,
+      team: userTeams,
+      class: "yourMsg",
+      message: "You: " + chat,
+    });
+    localStorage.setItem("chats", JSON.stringify(chatArr));
     setChats([
       ...allChats,
-      { id: uuidv4, client: false, class: "yourMsg", message: "You: " + chat },
+      {
+        id: uuidv4,
+        client: false,
+        team: userTeams,
+        class: "yourMsg",
+        message: "You: " + chat,
+      },
     ]);
-    socket.send(JSON.stringify({ user: "sid", message: chat }));
+    socket.send(
+      JSON.stringify({ user: "sid", team: userTeams, message: chat })
+    );
     console.log(allChats);
   };
 
@@ -33,27 +83,44 @@ export function Chat({ chats }) {
       if (parseData.server) {
         setHead(parseData.message);
       } else {
-        setChats([
-          ...allChats,
-          {
-            id: uuidv4,
-            client: true,
-            class: "clientMsg",
-            message: parseData.message,
-          },
-        ]);
+        chatArr.push({
+          id: uuidv4,
+          client: true,
+          team: userTeams,
+          class: "clientMsg",
+          message: parseData.message,
+        });
+        localStorage.setItem("chats", JSON.stringify(chatArr));
+        console.log("else not server");
+        setChats(chatArr);
+        // setChats([
+        //   ...allChats,
+        //   {
+        //     id: uuidv4,
+        //     client: true,
+        //     class: "clientMsg",
+        //     message: parseData.message,
+        //   },
+        // ]);
       }
     } catch (e) {
-      setChats([
-        ...allChats,
-        { id: uuidv4, client: true, class: "clientMsg", message: newMsg },
-      ]);
+      console.log("catch of msg", newMsg);
+      chatArr.push({
+        id: uuidv4,
+        client: true,
+        team: userTeams,
+        class: "clientMsg",
+        message: newMsg,
+      });
+      localStorage.setItem("chats", JSON.stringify(chatArr));
+      setChats(chatArr);
+      localStorage.setItem("chats", allChats);
     }
   });
 
   return (
     <>
-      <Nav />
+      <Nav userName={data.userName} />
       <h1 id="heading" style={{ justifyContent: "center", display: "flex" }}>
         {heading}
       </h1>
@@ -65,6 +132,20 @@ export function Chat({ chats }) {
           >
             Teams
           </h1>
+          <Teams
+            groups={userTeams}
+            currGrp={(teamName) => {
+              console.log("hmmm parent is listnening", teamName);
+              const allMembers = getMembers(teamName);
+              setTeams(teamName);
+              setMembers(allMembers);
+            }}
+          />
+          <div className="flex justify-center ">
+            <button className="rounded-lg p-1 mt-1 bg-sky-500 text-l">
+              Create +
+            </button>
+          </div>
         </div>
         {/* bg-cyan-300 */}
         <div className=" chatWindow peer w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100">
@@ -72,7 +153,7 @@ export function Chat({ chats }) {
             id="teamName"
             className="rounded-[7px] border border-blue-gray-200 bg-transparent"
           >
-            Team 1
+            {userTeams}
           </h1>
           <div
             className="w-full h-[300px] sm:h-[450px] md:h-[600px] lg:h-[450px] xl:h-[600px]"
@@ -81,12 +162,20 @@ export function Chat({ chats }) {
           >
             <div className="chatDiv">
               <ul className="chatBox">
-                {allChats.map((chat, index) => (
-                  // chat.client && (
-                  <li className={chat.class} key={index}>
-                    {chat.message}
-                  </li>
-                ))}
+                {allChats &&
+                  allChats.map(
+                    (chat, index) =>
+                      // chat.client && (
+                      chat.team === userTeams && (
+                        <div className={chat.class + "Div "}>
+                          <li className={chat.class} key={index}>
+                            <span className="rounded-[5px] border border-blue-black-200 bg-transparent">
+                              {chat.message}
+                            </span>
+                          </li>
+                        </div>
+                      )
+                  )}
               </ul>
             </div>
           </div>
@@ -99,6 +188,7 @@ export function Chat({ chats }) {
           >
             Chat members
           </h1>
+          <Members members={members} teamName={userTeams} />
         </div>
       </div>
     </>
