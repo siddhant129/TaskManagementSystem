@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../index.css";
 import axios from "axios";
+import { CreateFolder } from "./createFolder";
 const taskProp = {
   Token: "",
   closeTask: () => {},
@@ -185,6 +186,7 @@ function AddTaskComp({ closeTask, Token, taskRef } = taskProp) {
 export function Folders() {
   const [taskClick, setTask] = useState(false);
   const [tasks, setFolder] = useState([]);
+  const [createFolder, setCrtFld] = useState(false);
   const userData = localStorage.getItem("data");
   var data = JSON.parse(userData);
   // var folders = data.folders;
@@ -195,7 +197,15 @@ export function Folders() {
   console.log("all", allFolders);
   if (allFolders.length !== 0) {
     return (
+      //add new folder form
       <>
+        {createFolder && (
+          <CreateFolder
+            closeModal={() => {
+              setCrtFld(false);
+            }}
+          />
+        )}
         <div className="folders-main ">
           <div className="container1">
             <div className="folders">
@@ -238,6 +248,16 @@ export function Folders() {
                   </div>
                 ))}
               </ul>
+            </div>
+            <div className="flex items-center justify-center">
+              <button
+                className="bg-blue-500 text-white font-bold py-2 px-4 rounded-full"
+                onClick={() => {
+                  setCrtFld(true);
+                }}
+              >
+                + Add folder
+              </button>
             </div>
           </div>
 
@@ -441,14 +461,24 @@ export function Folders() {
   } else {
     return (
       <>
+        {createFolder && (
+          <CreateFolder
+            closeModal={() => {
+              setCrtFld(false);
+            }}
+          />
+        )}
         <div className="flex text-center flex-col align-center justify-center ">
-          <h1 className="font-bold inline-block" style={{ fontSize: "50px" }}>
+          <h1 className="font-bold inline-block" style={{ fontSize: "30px" }}>
             No projects yet created
           </h1>
           <div className="flex align-center justify-center">
             <button
               className="bg-blue-500 hover:bg-blue text-white font-bold py-2 px-4 rounded-full"
               style={{ width: "10%" }}
+              onClick={() => {
+                setCrtFld(true);
+              }}
             >
               + Add
             </button>

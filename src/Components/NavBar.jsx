@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Loader } from "./Loader";
 
 const userData = localStorage.getItem("data");
 var data = JSON.parse(userData);
@@ -18,11 +19,13 @@ const getTeams = async () => {
 export function Nav({ userName }) {
   const [display, setProfile] = useState("hidden");
   const [menu, setMenu] = useState("hidden");
+  const [loading, setLoad] = useState("");
 
   const navigate = useNavigate();
 
   return (
     <>
+      {loading && <Loader text={loading} />}
       <nav className="bg-gray-800">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
@@ -98,15 +101,17 @@ export function Nav({ userName }) {
                   {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
                   <a
                     href="/Dashboard"
-                    className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                     aria-current="page"
                   >
                     Dashboard
                   </a>
                   <a
-                    // href="/Team"
+                    href="#"
                     onClick={async () => {
+                      setLoad("Moving to teams");
                       await getTeams();
+                      setLoad("");
                       navigate("/Team");
                     }}
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
@@ -239,15 +244,17 @@ export function Nav({ userName }) {
             {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
             <a
               href="/Dashboard"
-              className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
+              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
               aria-current="page"
             >
               Dashboard
             </a>
             <a
-              // href="/Team"
+              href="#"
               onClick={async () => {
+                setLoad(true);
                 await getTeams();
+                setLoad(false);
                 navigate("/Team");
               }}
               className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
