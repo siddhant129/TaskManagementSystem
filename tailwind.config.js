@@ -15,6 +15,10 @@ module.exports = {
         primary: "#35B3F4",
         subHeading: "#F3A662",
         subHeadBg: "#1F2937",
+        homeBg: "#FAFAFA",
+      },
+      backgroundColor: {
+        homeBg: "#FAFAFA",
       },
     },
   },

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { LogIn } from "./LogIn";
 import { Navigate, useNavigate } from "react-router-dom";
+import tmsicon from "../Images/tasks.png";
 
 const NavProp = {
   logModal: () => {},
@@ -22,7 +23,7 @@ export function LogInNav() {
 
   return (
     <>
-      <nav className="bg-gray-800">
+      <nav className="bg-gray-800 sticky top-0">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -85,21 +86,22 @@ export function LogInNav() {
             </div>
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
               <div className="flex flex-shrink-0 items-center">
-                <h1 style={{ fontWeight: 700, fontSize: 20, color: "white" }}>
+                {/* <h1 style={{ fontWeight: 700, fontSize: 20, color: "white" }}>
                   ToDo
-                </h1>
-                {/* <img
+                </h1> */}
+                <img
                   className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  src={tmsicon}
                   alt="Your Company"
-                /> */}
+                />
               </div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
                   {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
                   <a
                     href="#"
-                    className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                     aria-current="page"
                   >
                     Home
@@ -179,7 +181,7 @@ export function LogInNav() {
             {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
             <a
               href="#"
-              className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
+              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
               aria-current="page"
             >
               Home

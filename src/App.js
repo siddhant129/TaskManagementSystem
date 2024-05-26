@@ -1,9 +1,9 @@
 import "./App.css";
-import { LogInNav } from "./Components/LogInNav";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Dashboard } from "./Components/Dashboard";
 import { SignUp } from "./Components/SignUp";
 import { Chat } from "./Components/Teams/Chat";
+import { Home } from "./Components/Home";
 
 function App() {
   const data = localStorage.getItem("data");
@@ -12,7 +12,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          {!data && <Route exact path="/" element={<LogInNav />} />}
+          {!data && <Route exact path="/" element={<Home />} />}
           {data && <Route exact path="/" element={<Dashboard />} />}
           {data && <Route exact path="/Team" element={<Chat teams={data} />} />}
           <Route exact path="/Dashboard" element={<Dashboard />} />

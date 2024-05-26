@@ -48,13 +48,14 @@ export function Chat({ teams }) {
   }
 
   const [allChats, setChats] = useState(chatArr);
-  const [heading, setHead] = useState("");
+  const [heading, setHead] = useState("Connecting to the server.....");
   const handleChat = (chat) => {
     console.log("here is your chat ", chat);
     chatArr.push({
       id: uuidv4,
       client: false,
       team: userTeams,
+      user: "You",
       class: "yourMsg",
       message: "You: " + chat,
     });
@@ -65,12 +66,13 @@ export function Chat({ teams }) {
         id: uuidv4,
         client: false,
         team: userTeams,
+        user: "You",
         class: "yourMsg",
-        message: "You: " + chat,
+        message: chat,
       },
     ]);
     socket.send(
-      JSON.stringify({ user: "sid", team: userTeams, message: chat })
+      JSON.stringify({ user: userName, team: userTeams, message: chat })
     );
     console.log(allChats);
   };
@@ -80,13 +82,15 @@ export function Chat({ teams }) {
 
     try {
       const parseData = JSON.parse(newMsg);
+      console.log(parseData);
       if (parseData.server) {
         setHead(parseData.message);
       } else {
         chatArr.push({
           id: uuidv4,
           client: true,
-          team: userTeams,
+          team: parseData.team,
+          user: parseData.user,
           class: "clientMsg",
           message: parseData.message,
         });
@@ -108,7 +112,8 @@ export function Chat({ teams }) {
       chatArr.push({
         id: uuidv4,
         client: true,
-        team: userTeams,
+        user: newMsg.user,
+        team: newMsg.team,
         class: "clientMsg",
         message: newMsg,
       });
@@ -135,7 +140,6 @@ export function Chat({ teams }) {
           <Teams
             groups={userTeams}
             currGrp={(teamName) => {
-              console.log("hmmm parent is listnening", teamName);
               const allMembers = getMembers(teamName);
               setTeams(teamName);
               setMembers(allMembers);
@@ -162,9 +166,15 @@ export function Chat({ teams }) {
                     (chat, index) =>
                       // chat.client && (
                       chat.team === userTeams && (
-                        <div className={chat.class + "Div "}>
+                        <div
+                          key={"chatdiv" + index}
+                          className={chat.class + "Div "}
+                        >
                           <li className={chat.class} key={index}>
                             <span className="rounded-[5px] border border-blue-black-200 bg-transparent">
+                              <label className="    left-0 -top-1.5 flex !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:w-2 after:flex-grow after:border-t  after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 ">
+                                {chat.user}
+                              </label>
                               {chat.message}
                             </span>
                           </li>

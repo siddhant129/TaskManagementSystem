@@ -40,7 +40,7 @@ export function CreateFolder({ closeModal = () => {} }) {
         <div className="bg-white p-8 rounded w-96 text-center">
           <h2 className="text-2xl font-bold mb-4">Create Folder</h2>
           {/* Folder name input section */}
-          <label className="block text-black text-sm font-bold mb-1 align-left">
+          <label className="block text-black text-sm font-bold mb-1 text-left">
             Folder Name
           </label>
           <input
@@ -51,7 +51,7 @@ export function CreateFolder({ closeModal = () => {} }) {
             className="shadow appearance-none border rounded w-full py-2 px-1 text-black"
           />
           {/* Folder description input section */}
-          <label className="block text-black text-sm font-bold mb-1 align-left">
+          <label className="block text-black text-sm font-bold mb-1 text-left">
             Folder Description
           </label>
           <input

@@ -6,6 +6,7 @@ const taskProp = {
   Token: "",
   closeTask: () => {},
   changeFolder: () => {},
+  createLoader: (txt) => {},
 };
 const addTask = async (event, token) => {
   event.preventDefault();
@@ -89,7 +90,7 @@ async function updateTask(token, folderId, id, name, desc) {
   }
 }
 
-function AddTaskComp({ closeTask, Token, taskRef } = taskProp) {
+function AddTaskComp({ closeTask, Token, taskRef, createLoader } = taskProp) {
   return (
     <>
       <div
@@ -130,7 +131,9 @@ function AddTaskComp({ closeTask, Token, taskRef } = taskProp) {
               <form
                 className="space-y-4"
                 onSubmit={async (e) => {
+                  createLoader("Creating new task....");
                   const newTask = await addTask(e, Token);
+                  createLoader("");
                   taskRef(newTask);
                   console.log("here new task", newTask);
                 }}
@@ -187,6 +190,9 @@ export function Folders() {
   const [taskClick, setTask] = useState(false);
   const [tasks, setFolder] = useState([]);
   const [createFolder, setCrtFld] = useState(false);
+  const [taskLoader, setGetTask] = useState(
+    "Please select folder to get tasks"
+  );
   const userData = localStorage.getItem("data");
   var data = JSON.parse(userData);
   // var folders = data.folders;
@@ -231,11 +237,14 @@ export function Folders() {
                         onClick={async () => {
                           console.log("tasks push", folder.tasks);
                           localStorage.setItem("folderId", folder.id);
+                          setGetTask("Getting your tasks....");
                           const tasks = await getTasks(folder.id, data.token);
                           console.log("got the tasks", tasks);
-                          if (tasks) {
+                          if (tasks !== [] && tasks.length !== 0) {
+                            setGetTask("");
                             setFolder(tasks);
                           } else {
+                            setGetTask("No tasks created yet");
                             setFolder([]);
                           }
                         }}
@@ -266,12 +275,15 @@ export function Folders() {
             <h3 className="font-bold text-center text-xl text-primary">
               Tasks
             </h3>
+            {taskLoader != "" && (
+              <h3 className="text-center p-2">{taskLoader}</h3>
+            )}
             {tasks !== [] && (
               <div>
                 <ul>
                   {tasks.map((task, index) => (
-                    <div className="subHead">
-                      <div>
+                    <div className="subHead hidden  lg:flex  m-2  rounded-md ring-1  shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-150 dark:bg-slate-100 dark:highlight-white/5 dark:hover:bg-slate-200">
+                      <div className="w-full">
                         {/* Task heading */}
                         <li
                           key={task._id + "head"}
@@ -292,6 +304,7 @@ export function Folders() {
                             </h1>
                             {/* Save button with image */}
                             <a
+                              className="item-center"
                               href="javascript:void(0)"
                               key={task._id + "ahref"}
                               id={task._id + "save"}
@@ -335,6 +348,7 @@ export function Folders() {
                             </a>
                             {/* Edit button with image */}
                             <a
+                              className="item-right"
                               href="javascript:void(0)"
                               key={task._id + "edit"}
                               id={task._id + "edit"}
@@ -400,18 +414,20 @@ export function Folders() {
                           <p>{task.date.substring(0, 10)}</p>
                         </div>
                       </li> */}
-                      <li key={task.id} id={task._id + "time"}>
-                        <div className="taskDate" id={task._id + "timed"}>
-                          <img
-                            src="../Images/watchimg.jpg"
-                            id={task._id + "timeimg"}
-                            alt="watch img"
-                          />
-                          <p id={task._id + "timep"}>
-                            {task.date.substring(11, 16)}
-                          </p>
-                        </div>
-                      </li>
+                      <div className="">
+                        <li key={task.id} id={task._id + "time"}>
+                          <div className="taskDate" id={task._id + "timed"}>
+                            <img
+                              src="../Images/watchimg.jpg"
+                              id={task._id + "timeimg"}
+                              alt="watch img"
+                            />
+                            <p id={task._id + "timep"}>
+                              {task.date.substring(11, 16)}
+                            </p>
+                          </div>
+                        </li>
+                      </div>
                     </div>
                   ))}
                 </ul>
@@ -432,6 +448,9 @@ export function Folders() {
             </div>
             {taskClick && (
               <AddTaskComp
+                createLoader={(txt) => {
+                  setGetTask(txt);
+                }}
                 Token={data.token}
                 closeTask={() => {
                   setTask(false);

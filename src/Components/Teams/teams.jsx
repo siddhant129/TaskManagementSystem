@@ -102,6 +102,8 @@ export function Teams({ groups, currGrp = (grpName) => {} }) {
           {teams &&
             teams.map((team, index) => (
               <li
+                key={index}
+                id={index}
                 className="rounded-[5px] border border-blue-black-200 bg-transparent"
                 style={{ textAlign: "center" }}
               >
