@@ -23,7 +23,7 @@ export function LogInNav() {
 
   return (
     <>
-      <nav className="bg-gray-800 sticky top-0 scroll-smooth">
+      <nav className="bg-homeBg sticky top-0 scroll-smooth">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -101,20 +101,20 @@ export function LogInNav() {
                   {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
                   <a
                     href="/#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                    className="text-color1  hover:text-color2  rounded-md px-3 py-2 text-base font-medium"
                     aria-current="page"
                   >
                     Home
                   </a>
                   <a
                     href="#About"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="text-color1  hover:text-color2 rounded-md px-3 py-2 text-base font-medium"
                   >
                     About
                   </a>
                   <a
                     href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="text-color1  hover:text-color2 rounded-md px-3 py-2 text-base font-medium"
                   >
                     Contact Us
                   </a>
@@ -130,7 +130,7 @@ export function LogInNav() {
                   nevigate("/");
                   logInFn();
                 }}
-                className="relative bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-offset-2 focus:ring-offset-gray-800"
+                className="relative p-1 text-color2 hover:text-color1 text-l font-bold focus:text-color1 focus:ring-offset-gray-800"
               >
                 <span className="absolute -inset-1.5"></span>
                 {/* <span className="sr-only">Log In</span> */}
@@ -142,7 +142,7 @@ export function LogInNav() {
                 <div>
                   <button
                     type="button"
-                    className="relative flex bg-gray-800 focus:ring-white focus:ring-offset-2 text-sky-600 hover:text-sky-400"
+                    className="relative flex text-color2 text-base focus:text-color1 font-bold hover:text-color1"
                     id="user-menu-button"
                     aria-expanded="false"
                     aria-haspopup="false"

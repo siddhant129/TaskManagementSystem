@@ -11,11 +11,11 @@ if (!data) {
   userName = data.userName;
 }
 //Function to get teams
-const getTeams = async () => {
+const getTeams = async (token) => {
   const grps = await axios.get(
     "https://chatappbackendservice-3o66.onrender.com/chatGrp/getUserGrps",
     {
-      headers: { Authorization: `Bearer ${data.token}` },
+      headers: { Authorization: `Bearer ${token}` },
     }
   );
   console.log("grps hmmm", grps.data.userGrps);
@@ -24,7 +24,7 @@ const getTeams = async () => {
 };
 
 //Function to create new team
-const createTeam = async (name) => {
+const createTeam = async (name, token) => {
   const newTeam = await axios
     .post(
       "https://chatappbackendservice-3o66.onrender.com/chatGrp/createGrp",
@@ -40,13 +40,20 @@ const createTeam = async (name) => {
     )
     .then(async (resp) => {
       console.log(resp.data);
-      await getTeams();
+      await getTeams(token);
     });
 };
 
 export function CreateTeam({ closeModal = () => {} }) {
   const [teamName, setTmName] = useState("");
   const [loading, setLoad] = useState("");
+  const userData = localStorage.getItem("data");
+  try {
+    data = JSON.parse(userData);
+  } catch (error) {
+    data = userData;
+  }
+
   return (
     <>
       {loading && <Loader text={loading} />}
@@ -76,7 +83,7 @@ export function CreateTeam({ closeModal = () => {} }) {
             className="mt-4 bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded"
             onClick={async () => {
               setLoad("Creating new team");
-              const newTeam = await createTeam(teamName);
+              const newTeam = await createTeam(teamName, data.token);
               setLoad("");
               closeModal();
               // const data = await createFolder(folderName, folderDesc);

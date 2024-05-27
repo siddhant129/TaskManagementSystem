@@ -5,11 +5,11 @@ import { Loader } from "./Loader";
 
 const userData = localStorage.getItem("data");
 var data = JSON.parse(userData);
-const getTeams = async () => {
+const getTeams = async (token) => {
   const grps = await axios.get(
     "https://chatappbackendservice-3o66.onrender.com/chatGrp/getUserGrps",
     {
-      headers: { Authorization: `Bearer ${data.token}` },
+      headers: { Authorization: `Bearer ${token}` },
     }
   );
   console.log("grps hmmm", grps.data.userGrps);
@@ -22,7 +22,8 @@ export function Nav({ userName }) {
   const [loading, setLoad] = useState("");
 
   const navigate = useNavigate();
-
+  const userData = localStorage.getItem("data");
+  var data = JSON.parse(userData);
   return (
     <>
       {loading && <Loader text={loading} />}
@@ -110,7 +111,7 @@ export function Nav({ userName }) {
                     href="#"
                     onClick={async () => {
                       setLoad("Moving to teams");
-                      await getTeams();
+                      await getTeams(data.token);
                       setLoad("");
                       navigate("/Team");
                     }}

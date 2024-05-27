@@ -11,7 +11,7 @@ export function Home() {
 
         <div className="grid grid-cols-2 gap-6 bg-homeBg scroll-smooth">
           <div className="">
-            <h1 className="text-3xl ml-2 mt-20 transition delay-300 duration-600 ease-in-out text-center font-bold transition-all transform">
+            <h1 className="text-3xl ml-2 mt-20 text-center font-bold ">
               <span className="text-cyan-500"> Welcome </span>to our Task{" "}
               <span className="text-orange-300"> Management</span> System
             </h1>

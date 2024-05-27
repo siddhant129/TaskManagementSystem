@@ -1,6 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+import { spiral } from "ldrs";
+
+import { ring2 } from "ldrs";
+spiral.register();
+
+ring2.register();
+
+// Default values shown
+
 const LogProp = {
   logModal: () => {},
 };
@@ -39,17 +48,18 @@ const submitData = async (event) => {
 };
 export function LogIn({ logModal } = LogProp) {
   const nevigate = useNavigate();
-  const [log, setLogIn] = useState(false);
+  const [logLoader, setLogIn] = useState("Login to your account");
+
   return (
     <>
       <div
         id="authentication-modal"
-        className="flex justify-center items-center"
+        className="fixed inset-10 rounded-t bg-opacity-0 justify-center flex items-center"
       >
         <div className="relative p-4 w-full max-w-md max-h-full">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div className="relative bg-white  rounded-lg shadow dark:border-gray-600 dark:bg-gray-600">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-color1">
                 Sign in to our platform
               </h3>
               <button
@@ -80,16 +90,16 @@ export function LogIn({ logModal } = LogProp) {
               <form
                 className="space-y-4"
                 onSubmit={async (e) => {
+                  setLogIn("");
                   const path = await submitData(e);
                   nevigate(path);
-                  setLogIn(true);
                 }}
                 action="#"
               >
                 <div>
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-color2"
                   >
                     Your email or username
                   </label>
@@ -97,15 +107,15 @@ export function LogIn({ logModal } = LogProp) {
                     // type="email"
                     name="email"
                     id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    // placeholder="name@company.com"
+                    className="bg-inpBg border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-inpBg dark:border-gray-500 dark:placeholder-gray-600 font-bold dark:text-black"
+                    placeholder="Enter username or mail"
                     // required
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-color2"
                   >
                     Your password
                   </label>
@@ -114,7 +124,7 @@ export function LogIn({ logModal } = LogProp) {
                     name="password"
                     id="password"
                     placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5 dark:bg-inpBg 600 dark:border-gray-500 dark:placeholder-gray-600 font-bold dark:text-black"
                     required
                   />
                 </div>
@@ -138,7 +148,7 @@ export function LogIn({ logModal } = LogProp) {
                   </div> */}
                   <a
                     href="#"
-                    className="text-sm text-blue-700 hover:underline dark:text-blue-500"
+                    className="text-sm text-blue-700 hover:underline dark:text-color1"
                   >
                     Lost Password?
                   </a>
@@ -150,13 +160,23 @@ export function LogIn({ logModal } = LogProp) {
                   }}
                   className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  Login to your account
+                  {!logLoader && (
+                    <l-ring-2
+                      size="20"
+                      stroke="5"
+                      stroke-length="0.25"
+                      bg-opacity="0.1"
+                      speed="0.8"
+                      color="black"
+                    ></l-ring-2>
+                  )}{" "}
+                  {logLoader}
                 </button>
-                <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+                <div className="text-sm font-medium text-gray-500 dark:text-color1">
                   Not registered?{" "}
                   <a
                     href="#"
-                    className="text-blue-700 hover:underline dark:text-blue-500"
+                    className="text-blue-700 hover:underline dark:text-color2"
                   >
                     Create account
                   </a>
