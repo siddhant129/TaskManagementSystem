@@ -81,13 +81,13 @@ export function Members({ members = [], teamName }) {
     <>
       {msgPop !== "" && <MessagePopUp message={msgPop} />}
       <div>
-        <ul>
+        <ul className="flex flex-wrap flex-row justify-around">
           {members &&
             members.map((member) => (
               <li
                 id={member.user._id}
                 key={member.user._id}
-                className="rounded-[7px] border border-blue-black-200 bg-transparent"
+                className="rounded-[7px] w-9/12 mb-1 border border-blue-black-200 bg-transparent"
                 style={{ textAlign: "center" }}
               >
                 {member.user.userName}
@@ -102,7 +102,7 @@ export function Members({ members = [], teamName }) {
               onClick={() => {
                 setUModal(true);
               }}
-              className="rounded-lg p-1 mt-1 bg-sky-500 text-l"
+              className="rounded-lg border border-gray-900 mt-2 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             >
               Add +
             </button>

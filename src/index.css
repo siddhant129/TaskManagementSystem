@@ -15,7 +15,7 @@ code {
   display: flex;
 }
 .folders {
-  background-color: #333d4b;
+  /* background-color: #333d4b; */
   width: 400px;
   margin: 5px;
   flex-basis: 30%;

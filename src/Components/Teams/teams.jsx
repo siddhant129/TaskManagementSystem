@@ -98,13 +98,13 @@ export function Teams({ groups, currGrp = (grpName) => {} }) {
         </>
       ) : null}
       <div>
-        <ul>
+        <ul className="flex flex-wrap flex-row justify-around">
           {teams &&
             teams.map((team, index) => (
               <li
                 key={index}
                 id={index}
-                className="rounded-[5px] border border-blue-black-200 bg-transparent"
+                className="rounded-[5px] w-9/12 mb-1 hover:bg-gray-200 border border-blue-black-200 bg-transparent"
                 style={{ textAlign: "center" }}
               >
                 <a
@@ -121,7 +121,7 @@ export function Teams({ groups, currGrp = (grpName) => {} }) {
         </ul>
         <div className="flex justify-center ">
           <button
-            className="rounded-lg p-1 mt-1 bg-sky-500 text-l"
+            className="rounded-lg border border-gray-900 mt-2 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             onClick={() => {
               setCrtTeam(true);
             }}

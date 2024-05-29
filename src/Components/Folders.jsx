@@ -214,7 +214,7 @@ export function Folders() {
         )}
         <div className="folders-main ">
           <div className="container1">
-            <div className="folders">
+            <div className="folders border-gray-900 hover:ring-slate-150 dark:bg-slate-100 dark:highlight-white/5 dark:hover:bg-slate-200 py-3 px-6 text-center align-middle font-sans ">
               <h3
                 key={"projectTitle"}
                 className="font-bold text-center text-xl text-primary"
@@ -231,9 +231,10 @@ export function Folders() {
                     <li
                       key={folder.id}
                       id={folder.id}
-                      className="folder text-subHeading list-inside list-none list-bg-gray"
+                      className="folder hover:bg-gray-400 rounded text-subHeading list-inside list-none list-bg-gray"
                     >
                       <a
+                        href="#"
                         onClick={async () => {
                           console.log("tasks push", folder.tasks);
                           localStorage.setItem("folderId", folder.id);
@@ -260,7 +261,7 @@ export function Folders() {
             </div>
             <div className="flex items-center justify-center">
               <button
-                className="bg-blue-500 text-white font-bold py-2 px-4 rounded-full"
+                className="rounded-lg border border-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 onClick={() => {
                   setCrtFld(true);
                 }}
@@ -282,7 +283,7 @@ export function Folders() {
               <div>
                 <ul>
                   {tasks.map((task, index) => (
-                    <div className="subHead hidden  lg:flex  m-2  rounded-md ring-1  shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-150 dark:bg-slate-100 dark:highlight-white/5 dark:hover:bg-slate-200">
+                    <div className="subHead  m-2  rounded-md ring-1  shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-150 dark:bg-slate-100 dark:highlight-white/5 dark:hover:bg-slate-200">
                       <div className="w-full">
                         {/* Task heading */}
                         <li
@@ -437,7 +438,7 @@ export function Folders() {
               {!taskClick && (
                 <>
                   <button
-                    className="bg-blue-500 text-white font-bold py-2 px-4 rounded-full"
+                    className="rounded-lg border border-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                     // style={{ width: }}
                     onClick={setTask}
                   >
@@ -493,7 +494,7 @@ export function Folders() {
           </h1>
           <div className="flex align-center justify-center">
             <button
-              className="bg-blue-500 hover:bg-blue text-white font-bold py-2 px-4 rounded-full"
+              className="rounded-lg border border-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               style={{ width: "10%" }}
               onClick={() => {
                 setCrtFld(true);

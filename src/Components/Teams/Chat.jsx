@@ -36,7 +36,6 @@ const getMembers = (teamName) => {
   });
   return allMembers;
 };
-
 export function Chat({ teams }) {
   const [userTeams, setTeams] = useState("");
   const [members, setMembers] = useState("");
@@ -132,7 +131,7 @@ export function Chat({ teams }) {
       <div className="teams">
         <div className="">
           <h1
-            className="teamDiv rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent "
+            className="teamDiv rounded-[7px] p-1 text-l border font-bold border-blue-gray-200 border-t-transparent bg-transparent "
             style={{ justifyContent: "center", display: "flex" }}
           >
             Teams
@@ -150,7 +149,7 @@ export function Chat({ teams }) {
         <div className=" chatWindow peer w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100">
           <h1
             id="teamName"
-            className="rounded-[7px] border border-blue-gray-200 bg-transparent"
+            className="rounded-[7px] border p-1 border-blue-gray-200 bg-transparent"
           >
             {userTeams}
           </h1>
@@ -188,7 +187,7 @@ export function Chat({ teams }) {
         </div>
         <div>
           <h1
-            className="membersDiv rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent "
+            className="membersDiv rounded-[7px] p-1 border text-l font-bold border-blue-gray-200 border-t-transparent bg-transparent "
             style={{ justifyContent: "center", display: "flex" }}
           >
             Chat members

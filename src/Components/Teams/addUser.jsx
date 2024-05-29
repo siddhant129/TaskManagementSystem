@@ -77,7 +77,7 @@ export function AddUser({ teamName, closeModal = () => {} }) {
         <div className="bg-white p-8 rounded w-96 text-center">
           <h2 className="text-2xl font-bold mb-4">Add new member</h2>
           {/* Folder name input section */}
-          <label className="block text-black text-sm font-bold mb-1 align-left">
+          <label className="block text-black text-sm font-bold mb-1 text-left">
             User Name
           </label>
           <input

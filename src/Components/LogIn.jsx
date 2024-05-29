@@ -32,7 +32,7 @@ const submitData = async (event) => {
       },
     }
   ).catch((e) => {
-    console.log(e.message);
+    console.log(e);
   });
   const data = await response.json().catch((err) => {
     console.log(err.message);
@@ -49,6 +49,7 @@ const submitData = async (event) => {
 export function LogIn({ logModal } = LogProp) {
   const nevigate = useNavigate();
   const [logLoader, setLogIn] = useState("Login to your account");
+  const [logfailed, setFailed] = useState("");
 
   return (
     <>
@@ -86,12 +87,21 @@ export function LogIn({ logModal } = LogProp) {
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
+            {logfailed !== "" && (
+              <h3 className="text-center text-red-400">
+                Incorrect email or password
+              </h3>
+            )}
             <div className="p-4 md:p-5">
               <form
                 className="space-y-4"
                 onSubmit={async (e) => {
                   setLogIn("");
                   const path = await submitData(e);
+                  if (path === "/") {
+                    setFailed("Incorrect password");
+                    setLogIn("Login to your account");
+                  }
                   nevigate(path);
                 }}
                 action="#"
@@ -158,7 +168,7 @@ export function LogIn({ logModal } = LogProp) {
                   onClick={() => {
                     console.log("On click");
                   }}
-                  className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="w-full text-white bg-btnBg hover:bg-btnBg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-color2 dark:hover:bg-color3 dark:focus:ring-blue-800"
                 >
                   {!logLoader && (
                     <l-ring-2

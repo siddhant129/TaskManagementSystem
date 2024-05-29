@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "./Loader";
+import tmsicon from "../Images/tasks.png";
 
 const userData = localStorage.getItem("data");
 var data = JSON.parse(userData);
@@ -27,7 +28,7 @@ export function Nav({ userName }) {
   return (
     <>
       {loading && <Loader text={loading} />}
-      <nav className="bg-gray-800">
+      <nav className="bg-navBg sticky top-0">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -89,20 +90,20 @@ export function Nav({ userName }) {
               </button>
             </div>
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-              <div className="flex flex-shrink-0 text-white items-center font-bold text-xl">
-                Welcome {userName}
-                {/* <img
+              <div className="flex flex-shrink-0 text-1F2937 items-center font-bold text-xl">
+                <img
                   className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                  src={tmsicon}
                   alt="Your Company"
-                /> */}
+                />
               </div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
                   {/* <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" --> */}
                   <a
                     href="/Dashboard"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                    className="text-color1 hover:bg-color2 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                     aria-current="page"
                   >
                     Dashboard
@@ -115,19 +116,19 @@ export function Nav({ userName }) {
                       setLoad("");
                       navigate("/Team");
                     }}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="text-color1 hover:bg-color2 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                   >
                     Team
                   </a>
                   <a
                     href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="text-color1 hover:bg-color2 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                   >
                     Projects
                   </a>
                   <a
                     href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    className="text-color1 hover:bg-color2 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                   >
                     Calendar
                   </a>
@@ -137,7 +138,7 @@ export function Nav({ userName }) {
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <button
                 type="button"
-                className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                className="relative rounded-full bg-navBg p-1 text-color2 hover:text-color1 focus:outline-none focus:ring-2 focus:ring-color1 focus:ring-offset-2 focus:ring-offset-gray-800"
               >
                 <span className="absolute -inset-1.5"></span>
                 <span className="sr-only">View notifications</span>
@@ -162,7 +163,7 @@ export function Nav({ userName }) {
                 <div>
                   <button
                     type="button"
-                    className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className="relative flex rounded-full bg-color3 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     id="user-menu-button"
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -203,6 +204,16 @@ export function Nav({ userName }) {
                   tabIndex="-1"
                 >
                   {/* <!-- Active: "bg-gray-100", Not Active: "" --> */}
+                  <a
+                    href="#"
+                    className="block px-4 py-2 font-bold text-sm text-gray-700"
+                    role="menuitem"
+                    tabIndex="-1"
+                    id="user-menu-item-0"
+                  >
+                    Hello {userName}
+                  </a>
+                  <hr />
                   <a
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700"
