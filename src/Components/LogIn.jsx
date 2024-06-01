@@ -118,7 +118,7 @@ export function LogIn({ logModal } = LogProp) {
                     name="email"
                     id="email"
                     className="bg-inpBg border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-inpBg dark:border-gray-500 dark:placeholder-gray-600 font-bold dark:text-black"
-                    placeholder="Enter username or mail"
+                    placeholder="Enter username or email"
                     // required
                   />
                 </div>

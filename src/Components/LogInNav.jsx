@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LogIn } from "./LogIn";
 import { Navigate, useNavigate } from "react-router-dom";
 import tmsicon from "../Images/tasks.png";
+import { SignUp } from "./SignUp";
 
 const NavProp = {
   logModal: () => {},
@@ -11,6 +12,7 @@ export function LogInNav() {
   const [display, setProfile] = useState("hidden");
   const [menu, setMenu] = useState("hidden");
   const [logIn, setLogIn] = useState(false);
+  const [signUp, setSignUp] = useState(false);
   const nevigate = useNavigate();
   function logInFn() {
     setLogIn(true);
@@ -129,6 +131,7 @@ export function LogInNav() {
                 onClick={() => {
                   nevigate("/");
                   logInFn();
+                  setSignUp(false);
                 }}
                 className="relative p-1 text-color2 hover:text-color1 text-l font-bold focus:text-color1 focus:ring-offset-gray-800"
               >
@@ -153,7 +156,9 @@ export function LogInNav() {
                       } else {
                         setProfile("hidden");
                       }
-                      nevigate("/SignUp");
+                      setSignUp(true);
+                      setLogIn(false);
+                      // nevigate("/SignUp");
                     }}
                   >
                     Sign Up
@@ -207,7 +212,14 @@ export function LogInNav() {
           logModal={() => {
             setLogIn(false);
           }}
-          //   submitData={}
+        />
+      )}
+
+      {signUp && (
+        <SignUp
+          logModal={() => {
+            setSignUp(false);
+          }}
         />
       )}
     </>
