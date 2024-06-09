@@ -2,6 +2,15 @@ import { useState } from "react";
 import "../index.css";
 import axios from "axios";
 import { CreateFolder } from "./createFolder";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faClock,
+  faFloppyDisk,
+  faMugHot,
+  faPencilSquare,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+
 const taskProp = {
   Token: "",
   closeTask: () => {},
@@ -193,6 +202,7 @@ export function Folders() {
   const [taskLoader, setGetTask] = useState(
     "Please select folder to get tasks"
   );
+  const status = ["Not started", "In progress", "Closed"];
   const userData = localStorage.getItem("data");
   var data = JSON.parse(userData);
   // var folders = data.folders;
@@ -212,7 +222,7 @@ export function Folders() {
             }}
           />
         )}
-        <div className="folders-main ">
+        <div className="folders-main bg-homeBg">
           <div className="container1">
             <div className="folders border-gray-900 hover:ring-slate-150 dark:bg-slate-100 dark:highlight-white/5 dark:hover:bg-slate-200 py-3 px-6 text-center align-middle font-sans ">
               <h3
@@ -283,9 +293,15 @@ export function Folders() {
               <div>
                 <ul>
                   {tasks.map((task, index) => (
-                    <div className="subHead  m-2  rounded-md ring-1  shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-150 dark:bg-slate-100 dark:highlight-white/5 dark:hover:bg-slate-200">
+                    <div className="subHead m-2  rounded-md ring-1  shadow-sm py-1.5 pl-2 pr-3 hover:ring-slate-150 dark:bg-slate-100 dark:highlight-white/5 dark:hover:bg-slate-200">
                       <div className="w-full">
                         {/* Task heading */}
+                        <label
+                          for="taskName"
+                          class="block mb-2 text-l font-bold text-gray-900 dark:text-black"
+                        >
+                          Name
+                        </label>
                         <li
                           key={task._id + "head"}
                           id={task._id + "head"}
@@ -294,9 +310,10 @@ export function Folders() {
                           <div
                             key={task._id + "hdiv"}
                             id={task._id + "hdiv"}
-                            className="taskHead"
+                            className="justify-between flex"
                           >
                             <h1
+                              className="w-full"
                               id={task._id}
                               contentEditable="false"
                               key={task._id}
@@ -305,7 +322,7 @@ export function Folders() {
                             </h1>
                             {/* Save button with image */}
                             <a
-                              className="item-center"
+                              className="item-right"
                               href="javascript:void(0)"
                               key={task._id + "ahref"}
                               id={task._id + "save"}
@@ -340,11 +357,15 @@ export function Folders() {
                                 );
                               }}
                             >
-                              <img
+                              {/* <img
                                 key={task._id + "simg"}
                                 id={task._id + "simg"}
                                 src="../Images/save.png"
                                 alt="editimg"
+                              /> */}
+                              <FontAwesomeIcon
+                                icon={faFloppyDisk}
+                                className="fa-lg text-black h-6"
                               />
                             </a>
                             {/* Edit button with image */}
@@ -355,6 +376,12 @@ export function Folders() {
                               id={task._id + "edit"}
                               onClick={(e) => {
                                 var tHead = document.getElementById(task._id);
+                                var status = document.getElementById(
+                                  task._id + "status"
+                                );
+                                console.log(status);
+                                // status.setAttribute("disabled", "false");
+                                status.removeAttribute("disabled");
                                 var editId = document.getElementById(
                                   task._id + "edit"
                                 );
@@ -375,24 +402,53 @@ export function Folders() {
                                 // setEdit(true);
                               }}
                             >
-                              <img
+                              <FontAwesomeIcon
+                                icon={faPencilSquare}
+                                className="fa-xl h-7 text-color2"
+                              />
+                              {/* <img
                                 src="../Images/editimg.jpg"
                                 alt="editimg"
                                 id={task._id + "editimg"}
-                              />
+                              /> */}
                             </a>
                           </div>
                         </li>
 
                         {/* //Task description */}
-                        <li
-                          key={task._id + "desc"}
-                          id={task._id + "desc"}
-                          contentEditable="false"
+                        <label
+                          for="taskDesc"
+                          class="text-l font-bold text-gray-900 dark:text-black"
                         >
-                          <h2 key={task.id} id={task.id + "desch2"}>
-                            {task.description}
-                          </h2>
+                          Description
+                        </label>
+                        <li
+                          key={task._id + "descli"}
+                          id={task._id + "descli"}
+                          contentEditable="false"
+                          className="pt-1"
+                        >
+                          <div className="justify-between flex">
+                            <h2
+                              className="text-color1 "
+                              key={task._id + "desc"}
+                              id={task._id + "desc"}
+                            >
+                              {task.description}
+                            </h2>
+
+                            <a
+                              href="#"
+                              onClick={() => {
+                                console.log("delete");
+                              }}
+                            >
+                              <FontAwesomeIcon
+                                icon={faTrash}
+                                className="fa-lg text-red-500 h-7 hover:text-red-900 hover:ease-in-out duration-300"
+                              />
+                            </a>
+                          </div>
                         </li>
                       </div>
 
@@ -416,17 +472,58 @@ export function Folders() {
                         </div>
                       </li> */}
                       <div className="">
+                        <label
+                          for="taskDesc"
+                          class="block mb-2 text-l font-bold text-gray-900 dark:text-black"
+                        >
+                          Last changed
+                        </label>
                         <li key={task.id} id={task._id + "time"}>
                           <div className="taskDate" id={task._id + "timed"}>
-                            <img
+                            {/* <img
                               src="../Images/watchimg.jpg"
                               id={task._id + "timeimg"}
                               alt="watch img"
+                            /> */}
+                            <FontAwesomeIcon
+                              icon={faClock}
+                              className="fa-lg text-color1"
                             />
                             <p id={task._id + "timep"}>
                               {task.date.substring(11, 16)}
                             </p>
                           </div>
+                        </li>
+                      </div>
+                      <div>
+                        <label
+                          for="status"
+                          class="block mb-2 text-l font-bold text-gray-900 dark:text-black"
+                        >
+                          Status
+                        </label>
+                        <li className="">
+                          <form class="max-w-sm">
+                            <select
+                              // contentEditable="false"
+                              disabled="true"
+                              id={task._id + "status"}
+                              key={task._id + "status"}
+                              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            >
+                              {status.map((ele, index) => (
+                                <option
+                                  key={index}
+                                  // onClick={set}
+                                  // onClick={() => setSelectedCategory(categories[category])}
+                                >
+                                  {ele}
+
+                                  {/* {category.charAt(0).toUpperCase() + category.slice(1)} */}
+                                </option>
+                              ))}
+                            </select>
+                          </form>
                         </li>
                       </div>
                     </div>

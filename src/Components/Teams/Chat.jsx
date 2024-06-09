@@ -56,7 +56,7 @@ export function Chat({ teams }) {
       team: userTeams,
       user: "You",
       class: "yourMsg",
-      message: "You: " + chat,
+      message: chat,
     });
     localStorage.setItem("chats", JSON.stringify(chatArr));
     setChats([
@@ -125,74 +125,76 @@ export function Chat({ teams }) {
   return (
     <>
       <Nav userName={data.userName} />
-      <h1 id="heading" style={{ justifyContent: "center", display: "flex" }}>
-        {heading}
-      </h1>
-      <div className="teams">
-        <div className="">
-          <h1
-            className="teamDiv rounded-[7px] p-1 text-l border font-bold border-blue-gray-200 border-t-transparent bg-transparent "
-            style={{ justifyContent: "center", display: "flex" }}
-          >
-            Teams
-          </h1>
-          <Teams
-            groups={userTeams}
-            currGrp={(teamName) => {
-              const allMembers = getMembers(teamName);
-              setTeams(teamName);
-              setMembers(allMembers);
-            }}
-          />
-        </div>
-        {/* bg-cyan-300 */}
-        <div className=" chatWindow peer w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100">
-          <h1
-            id="teamName"
-            className="rounded-[7px] border p-1 border-blue-gray-200 bg-transparent"
-          >
-            {userTeams}
-          </h1>
-          <div
-            className="w-full h-[300px] sm:h-[450px] md:h-[600px] lg:h-[450px] xl:h-[600px]"
-            // src={}
-            style={{ overflow: "scroll" }}
-          >
-            <div className="chatDiv">
-              <ul className="chatBox">
-                {allChats &&
-                  allChats.map(
-                    (chat, index) =>
-                      // chat.client && (
-                      chat.team === userTeams && (
-                        <div
-                          key={"chatdiv" + index}
-                          className={chat.class + "Div "}
-                        >
-                          <li className={chat.class} key={index}>
-                            <span className="rounded-[5px] border border-blue-black-200 bg-transparent">
-                              <label className="    left-0 -top-1.5 flex !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:w-2 after:flex-grow after:border-t  after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 ">
-                                {chat.user}
-                              </label>
-                              {chat.message}
-                            </span>
-                          </li>
-                        </div>
-                      )
-                  )}
-              </ul>
-            </div>
+      <div className="bg-homeBg">
+        <h1 id="heading " style={{ justifyContent: "center", display: "flex" }}>
+          {heading}
+        </h1>
+        <div className="teams">
+          <div className="">
+            <h1
+              className="teamDiv rounded-[7px] p-1 text-l border font-bold border-blue-gray-200 border-t-transparent bg-transparent "
+              style={{ justifyContent: "center", display: "flex" }}
+            >
+              Teams
+            </h1>
+            <Teams
+              groups={userTeams}
+              currGrp={(teamName) => {
+                const allMembers = getMembers(teamName);
+                setTeams(teamName);
+                setMembers(allMembers);
+              }}
+            />
           </div>
-          <ChatForm chatData={handleChat} />
-        </div>
-        <div>
-          <h1
-            className="membersDiv rounded-[7px] p-1 border text-l font-bold border-blue-gray-200 border-t-transparent bg-transparent "
-            style={{ justifyContent: "center", display: "flex" }}
-          >
-            Chat members
-          </h1>
-          <Members members={members} teamName={userTeams} />
+          {/* bg-cyan-300 */}
+          <div className=" chatWindow peer w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100">
+            <h1
+              id="teamName"
+              className="rounded-[7px] border p-1 border-blue-gray-200 bg-transparent"
+            >
+              {userTeams}
+            </h1>
+            <div
+              className="w-full h-[300px] sm:h-[450px] md:h-[600px] lg:h-[450px] xl:h-[600px]"
+              // src={}
+              style={{ overflow: "scroll" }}
+            >
+              <div className="chatDiv">
+                <ul className="chatBox">
+                  {allChats &&
+                    allChats.map(
+                      (chat, index) =>
+                        // chat.client && (
+                        chat.team === userTeams && (
+                          <div
+                            key={"chatdiv" + index}
+                            className={chat.class + "Div "}
+                          >
+                            <li className={chat.class} key={index}>
+                              <span className="rounded-[5px] border border-blue-black-200 bg-transparent">
+                                <label className="    left-0 -top-1.5 flex !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:w-2 after:flex-grow after:border-t  after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 ">
+                                  {chat.user}
+                                </label>
+                                {chat.message}
+                              </span>
+                            </li>
+                          </div>
+                        )
+                    )}
+                </ul>
+              </div>
+            </div>
+            <ChatForm chatData={handleChat} />
+          </div>
+          <div>
+            <h1
+              className="membersDiv rounded-[7px] p-1 border text-l font-bold border-blue-gray-200 border-t-transparent bg-transparent "
+              style={{ justifyContent: "center", display: "flex" }}
+            >
+              Chat members
+            </h1>
+            <Members members={members} teamName={userTeams} />
+          </div>
         </div>
       </div>
     </>

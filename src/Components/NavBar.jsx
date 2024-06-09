@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "./Loader";
 import tmsicon from "../Images/tasks.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const userData = localStorage.getItem("data");
 var data = JSON.parse(userData);
@@ -28,7 +30,7 @@ export function Nav({ userName }) {
   return (
     <>
       {loading && <Loader text={loading} />}
-      <nav className="bg-navBg sticky top-0">
+      <nav className="bg-homeBg sticky top-0">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -163,7 +165,7 @@ export function Nav({ userName }) {
                 <div>
                   <button
                     type="button"
-                    className="relative flex rounded-full bg-color3 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className="relative flex rounded-full h-7 w-7 text-center justify-center flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     id="user-menu-button"
                     aria-expanded="false"
                     aria-haspopup="false"
@@ -178,10 +180,14 @@ export function Nav({ userName }) {
                   >
                     {/* <span className="absolute -inset-1.5"></span>
                     <span className="sr-only">Open user menu</span> */}
-                    <img
+                    {/* <img
                       className="h-8 w-8 rounded-full"
                       src="https://cdn3.iconfinder.com/data/icons/user-interface-2133/28/_28.profile_user_button_user_avatar_male_interface_icon-512.png"
                       alt=""
+                    /> */}
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      className="fa-2x text-center h-5 rounded-full"
                     />
                   </button>
                 </div>

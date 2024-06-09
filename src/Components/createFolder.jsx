@@ -6,6 +6,7 @@ const userData = localStorage.getItem("data");
 var data = JSON.parse(userData);
 //Create new folder
 const createFolder = async (name, desc) => {
+  console.log(name, desc);
   try {
     const newFolder = await axios
       .post(
@@ -45,6 +46,7 @@ export function CreateFolder({ closeModal = () => {} }) {
           </label>
           <input
             placeholder="Enter folder name"
+            type="text"
             onChange={(val) => {
               setFldName(val.target.value);
             }}
@@ -56,6 +58,7 @@ export function CreateFolder({ closeModal = () => {} }) {
           </label>
           <input
             placeholder="Enter folder description"
+            type="text"
             onChange={(val) => {
               setFldDesc(val.target.value);
             }}
@@ -72,6 +75,7 @@ export function CreateFolder({ closeModal = () => {} }) {
           <button
             className="mt-4 bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded"
             onClick={async () => {
+              console.log("Creating new folder wait.....");
               setLoad("Creating new folder");
               const data = await createFolder(folderName, folderDesc);
               setLoad("");
