@@ -54,6 +54,7 @@ html,
   -webkit-tap-highlight-color: transparent;
   /* 7 */
   scroll-behavior: smooth;
+  background-color: #fafafa;
 }
 
 /*

@@ -11,6 +11,10 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { bouncy } from "ldrs";
+
+bouncy.register();
+
 const taskProp = {
   Token: "",
   closeTask: () => {},
@@ -75,7 +79,7 @@ async function getTasks(folderId, token) {
 }
 
 // Function to update task created
-async function updateTask(token, folderId, id, name, desc) {
+async function updateTask(token, folderId, id, name, desc, status) {
   // event.preventDefault()
   try {
     const updateTask = await axios.put(
@@ -84,7 +88,7 @@ async function updateTask(token, folderId, id, name, desc) {
         id: id,
         name: name,
         description: desc,
-        // headers: { Authorization: token },
+        status: status,
       },
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -140,7 +144,12 @@ function AddTaskComp({ closeTask, Token, taskRef, createLoader } = taskProp) {
               <form
                 className="space-y-4"
                 onSubmit={async (e) => {
-                  createLoader("Creating new task....");
+                  createLoader(
+                    <p>
+                      Creating new task{" "}
+                      <l-bouncy size="15" speed="1.75" color="black"></l-bouncy>
+                    </p>
+                  );
                   const newTask = await addTask(e, Token);
                   createLoader("");
                   taskRef(newTask);
@@ -200,9 +209,9 @@ export function Folders() {
   const [tasks, setFolder] = useState([]);
   const [createFolder, setCrtFld] = useState(false);
   const [taskLoader, setGetTask] = useState(
-    "Please select folder to get tasks"
+    <p>Please select folder to get tasks </p>
   );
-  const status = ["Not started", "In progress", "Closed"];
+  const status = ["Not started", "In progress", "On hold", "Closed"];
   const userData = localStorage.getItem("data");
   var data = JSON.parse(userData);
   // var folders = data.folders;
@@ -248,10 +257,19 @@ export function Folders() {
                         onClick={async () => {
                           console.log("tasks push", folder.tasks);
                           localStorage.setItem("folderId", folder.id);
-                          setGetTask("Getting your tasks....");
+                          setGetTask(
+                            <p className="text-gray-900 font-bold">
+                              Getting your tasks{" "}
+                              <l-bouncy
+                                size="15"
+                                speed="1.75"
+                                // color={}
+                              ></l-bouncy>
+                            </p>
+                          );
                           const tasks = await getTasks(folder.id, data.token);
                           console.log("got the tasks", tasks);
-                          if (tasks !== [] && tasks.length !== 0) {
+                          if (tasks.length !== 0) {
                             setGetTask("");
                             setFolder(tasks);
                           } else {
@@ -289,7 +307,7 @@ export function Folders() {
             {taskLoader != "" && (
               <h3 className="text-center p-2">{taskLoader}</h3>
             )}
-            {tasks !== [] && (
+            {tasks && (
               <div>
                 <ul>
                   {tasks.map((task, index) => (
@@ -327,7 +345,7 @@ export function Folders() {
                               key={task._id + "ahref"}
                               id={task._id + "save"}
                               style={{ visibility: "hidden", display: "none" }}
-                              onClick={(e) => {
+                              onClick={async (e) => {
                                 const saveId = document.getElementById(
                                   task._id + "save"
                                 );
@@ -348,13 +366,29 @@ export function Folders() {
                                 const folderId =
                                   localStorage.getItem("folderId");
                                 console.log(data.token);
-                                updateTask(
+                                var status = document.getElementById(
+                                  task._id + "status"
+                                );
+                                setGetTask(
+                                  <p className="font-bold">
+                                    Updating task{" "}
+                                    <l-bouncy
+                                      size="15"
+                                      speed="1.75"
+                                      color="black"
+                                    ></l-bouncy>
+                                  </p>
+                                );
+                                await updateTask(
                                   data.token,
                                   folderId,
                                   task._id,
                                   tHead.innerText,
-                                  tDesc.innerText
+                                  tDesc.innerText,
+                                  status.value
                                 );
+                                setGetTask("");
+                                status.setAttribute("disabled", "true");
                               }}
                             >
                               {/* <img
@@ -379,7 +413,6 @@ export function Folders() {
                                 var status = document.getElementById(
                                   task._id + "status"
                                 );
-                                console.log(status);
                                 // status.setAttribute("disabled", "false");
                                 status.removeAttribute("disabled");
                                 var editId = document.getElementById(
@@ -507,6 +540,7 @@ export function Folders() {
                             <select
                               // contentEditable="false"
                               disabled="true"
+                              defaultValue={task.status}
                               id={task._id + "status"}
                               key={task._id + "status"}
                               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
